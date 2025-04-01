@@ -1,15 +1,25 @@
+// src/App.jsx
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import './App.css';
+
 function App() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-gray-900">
-      <header className="bg-blue-500 text-white text-center p-6 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold">Hello Tailwind CSS!</h1>
-        <p className="mt-2">Ceci est un test avec Vite + React + Tailwind.</p>
-      </header>
-      
-      <button className="mt-6 px-4 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 transition">
-        Clique-moi !
-      </button>
-    </div>
+    <Router>
+      <div className="flex flex-col min-h-screen bg-stone-100">
+        <Navbar />
+        <main className="flex-grow container mx-auto px-4 py-8">
+          <Routes>
+            {/* Vos routes iront ici */}
+            <Route path="/" element={<div className="p-10 text-center">Page d'accueil</div>} />
+            <Route path="/animaux" element={<div className="p-10 text-center">Liste des animaux</div>} />
+            <Route path="/admin/login" element={<div className="p-10 text-center">Page de connexion</div>} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
