@@ -1,0 +1,15 @@
+api_platform:
+    formats:
+        jsonld: ['application/ld+json']
+        json: ['application/json']
+        html: ['text/html']
+    defaults:
+        formats:
+            json: ['application/json']
+            jsonld: ['application/ld+json']
+    swagger:
+        versions: [3]
+        api_keys:
+            JWT:
+                name: Authorization
+                type: header

@@ -1,0 +1,10 @@
+# Cache, logs et fichiers générés
+/var/cache/*
+/var/log/*
+/var/sessions/*
+!var/cache/.gitkeep
+!var/log/.gitkeep
+!var/sessions/.gitkeep
+
+# Vendor (dependencies)
+/vendor/
