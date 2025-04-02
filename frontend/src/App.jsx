@@ -2,6 +2,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import HomePage from './pages/HomePage';
 import './App.css';
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
         <main className="flex-grow container mx-auto px-4 py-8">
           <Routes>
             {/* Vos routes iront ici */}
-            <Route path="/" element={<div className="p-10 text-center">Page d'accueil</div>} />
+            <Route path="/" element={<HomePage />} />
             <Route path="/animaux" element={<div className="p-10 text-center">Liste des animaux</div>} />
             <Route path="/admin/login" element={<div className="p-10 text-center">Page de connexion</div>} />
           </Routes>

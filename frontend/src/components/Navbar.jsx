@@ -24,7 +24,6 @@ const Navbar = () => {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link to="/" className="font-bold text-xl flex items-center">
-            <Building className="mr-2 h-6 w-6" />
             <span>Élevage M. Jones</span>
           </Link>
           
