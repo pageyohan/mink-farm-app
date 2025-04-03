@@ -29,3 +29,4 @@ final class Version20250403162825 extends AbstractMigration
         $this->addSql('ALTER TABLE animal DROP date_creation');
     }
 }
+
