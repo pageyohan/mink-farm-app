@@ -12,7 +12,7 @@ const Footer = () => {
           <div className="md:col-span-2">
             <div className="flex items-center mb-4">
               <Building className="h-8 w-8 mr-2" />
-              <h2 className="text-xl font-bold">Élevage M. Jones</h2>
+              <h2 className="text-xl font-bold">Élevage Jones</h2>
             </div>
             <p className="text-stone-300 mb-4">
               Élevage professionnel de bovins et ovins de qualité supérieure pour votre exploitation.
@@ -64,7 +64,7 @@ const Footer = () => {
         </div>
         
         <div className="mt-8 pt-6 border-t border-stone-700 text-center text-stone-400 text-sm">
-          <p>&copy; {new Date().getFullYear()} Élevage M. Jones. Tous droits réservés.</p>
+          <p>&copy; {new Date().getFullYear()} Élevage Jones. Tous droits réservés.</p>
         </div>
       </div>
     </footer>

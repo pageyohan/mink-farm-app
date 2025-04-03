@@ -249,7 +249,7 @@ const AnimalDetailPage = () => {
           
           <div className="text-sm text-stone-500">
             <p>Référence : #{animal.id}</p>
-            <p>Ajouté le : {formatDate(animal.dateNaissance) || 'Date inconnue'}</p>
+            <p>Ajouté le : {formatDate(animal.dateCreation) || 'Date inconnue'}</p>
           </div>
         </div>
       </div>

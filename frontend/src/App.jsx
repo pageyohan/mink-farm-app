@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import AnimalListPage from './pages/AnimalListPage';
 import AnimalDetailPage from './pages/AnimalDetailPage';
+import AdminLoginPage from './pages/AdminLoginPage';
 import './App.css';
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/animaux" element={<AnimalListPage />} />
             <Route path="/animaux/:id" element={<AnimalDetailPage />} />
-            <Route path="/admin/login" element={<div className="p-10 text-center">Page de connexion</div>} />
+            <Route path="/admin/login" element={<AdminLoginPage />} />
           </Routes>
         </main>
         <Footer />
