@@ -19,7 +19,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     normalizationContext: ['groups' => ['animal:read']],
     denormalizationContext: ['groups' => ['animal:write']]
 )]
-#[ApiFilter(SearchFilter::class, properties: ['race.nom' => 'partial', 'race.typeAnimal.nom' => 'exact', 'race.categorieBut.nom' => 'exact'])]
+#[ApiFilter(SearchFilter::class, properties: ['nom' => 'partial', 'race.nom' => 'partial', 'race.typeAnimal.nom' => 'exact', 'race.categorieBut.nom' => 'exact'])]
 #[ApiFilter(BooleanFilter::class, properties: ['aVendre'])]
 #[ApiFilter(OrderFilter::class, properties: ['age', 'prixHT', 'dateNaissance'])]
 class Animal
@@ -29,6 +29,10 @@ class Animal
     #[ORM\Column]
     #[Groups(['animal:read'])]
     private ?int $id = null;
+    
+    #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['animal:read', 'animal:write'])]
+    private ?string $nom = null;
 
     #[ORM\ManyToOne(inversedBy: 'animaux')]
     #[ORM\JoinColumn(nullable: false)]
@@ -55,6 +59,10 @@ class Animal
     #[Groups(['animal:read', 'animal:write'])]
     private ?\DateTimeInterface $dateNaissance = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Groups(['animal:read'])]
+    private ?\DateTimeInterface $dateCreation = null;
+
     #[ORM\OneToMany(mappedBy: 'animal', targetEntity: Photo::class, cascade: ['persist', 'remove'])]
     #[Groups(['animal:read', 'animal:write'])]
     private Collection $photos;
@@ -62,11 +70,24 @@ class Animal
     public function __construct()
     {
         $this->photos = new ArrayCollection();
+        $this->dateCreation = new \DateTime();
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+    
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+    
+    public function setNom(?string $nom): static
+    {
+        $this->nom = $nom;
+        
+        return $this;
     }
 
     public function getRace(): ?Race
@@ -151,6 +172,17 @@ class Animal
     {
         $this->dateNaissance = $dateNaissance;
 
+        return $this;
+    }
+
+    public function getDateCreation(): ?\DateTimeInterface
+    {
+        return $this->dateCreation;
+    }
+    
+    public function setDateCreation(\DateTimeInterface $dateCreation): static
+    {
+        $this->dateCreation = $dateCreation;
         return $this;
     }
 
