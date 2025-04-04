@@ -1,6 +1,6 @@
 // src/pages/AdminLoginPage.jsx
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Lock, User } from 'lucide-react';
 import AuthApi from '../services/AuthApi';
 
@@ -18,6 +18,9 @@ const AdminLoginPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const location = useLocation();
+  const from = location.state?.from || '/admin/dashboard';
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -33,7 +36,7 @@ const AdminLoginPage = () => {
       await AuthApi.login({ email, password });
       
       if (AuthApi.isAuthenticated()) {
-        navigate('/admin/dashboard');
+        navigate(from, { replace: true });
       } else {
         setError('Une erreur s\'est produite lors de la connexion. Veuillez réessayer.');
       }
