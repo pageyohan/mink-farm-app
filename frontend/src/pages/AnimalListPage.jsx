@@ -1,6 +1,6 @@
 // src/pages/AnimalListPage.jsx
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Search, Filter, X } from 'lucide-react';
 
 // Import des composants Shadcn
@@ -42,6 +42,7 @@ const AnimalListPage = () => {
   });
   const [showFilters, setShowFilters] = useState(false);
   const [sortOrder, setSortOrder] = useState('default');
+  const [searchParams] = useSearchParams();
 
   // Chargement des données depuis l'API
   useEffect(() => {
@@ -55,9 +56,7 @@ const AnimalListPage = () => {
           TypeAnimalApi.getAll(),
           RaceApi.getAll()
         ]);
-        
-        console.log('API Response:', animalsResponse);
-        
+                
         // Extraire les données des réponses API avec la structure correcte
         const animalsData = animalsResponse.member || [];
         const typesData = typesResponse.member || [];
@@ -76,6 +75,34 @@ const AnimalListPage = () => {
     
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const fetchAnimals = async () => {
+      try {
+        setLoading(true);
+        
+        // Préparer les filtres pour l'API
+        const apiFilters = { aVendre: true };
+        
+        // Ajouter le type d'animal si présent dans l'URL
+        const typeParam = searchParams.get('type');
+        if (typeParam) {
+          apiFilters['race.typeAnimal.nom'] = typeParam;
+        }
+        
+        // Charger les animaux filtrés
+        const response = await AnimalApi.getAll(apiFilters);
+        setAnimals(response.member || []);
+        setLoading(false);
+      } catch (err) {
+        console.error("Erreur lors du chargement des données:", err);
+        setError("Une erreur est survenue lors du chargement des données.");
+        setLoading(false);
+      }
+    };
+    
+    fetchAnimals();
+  }, [searchParams]);
 
   // Gérer les changements de filtres
   const handleFilterChange = (name, value) => {
@@ -312,22 +339,23 @@ const AnimalListPage = () => {
                   {sortedAnimals.map(animal => (
                     <Card key={animal.id} className="overflow-hidden flex flex-col h-full">
                       <div className="relative aspect-video">
-                        {animal.photos && animal.photos.length > 0 ? (
-                          <img 
-                            src={`/uploads/photos/${animal.photos[0].filename}`} 
-                            alt={animal.nom || 'Animal'} 
-                            className="absolute inset-0 w-full h-full object-cover"
-                            onError={(e) => {
-                              e.target.src = animal.race?.typeAnimal?.nom === "Ovin" ? '/ovin.jpeg' : '/bovin.jpeg';
-                            }}
-                          />
-                        ) : (
-                          <img 
-                            src={animal.race?.typeAnimal?.nom === "Ovin" ? '/ovin.jpeg' : '/bovin.jpeg'} 
-                            alt={animal.nom || 'Animal'} 
-                            className="absolute inset-0 w-full h-full object-cover"
-                          />
-                        )}
+                      {animal.photos && animal.photos.length > 0 && animal.photos[0].filename ? (
+                        <img 
+                          src={`http://localhost:8000/uploads/photos/${animal.photos[0].filename}`} 
+                          alt={animal.nom || 'Animal'} 
+                          className="absolute inset-0 w-full h-full object-cover"
+                          onError={(e) => {
+                            console.log("Erreur de chargement d'image pour:", animal.nom, animal.photos[0]);
+                            e.target.src = animal.race?.typeAnimal?.nom === "Ovin" ? '/ovin.jpeg' : '/bovin.jpeg';
+                          }}
+                        />
+                      ) : (
+                        <img 
+                          src={animal.race?.typeAnimal?.nom === "Ovin" ? '/ovin.jpeg' : '/bovin.jpeg'} 
+                          alt={animal.nom || 'Animal'} 
+                          className="absolute inset-0 w-full h-full object-cover"
+                        />
+                      )}
                         <div className="absolute top-2 right-2">
                           <Badge variant="secondary" className="bg-stone-800 text-white hover:bg-stone-700">
                             {animal.race?.typeAnimal?.nom || "Animal"}
