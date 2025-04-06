@@ -130,7 +130,7 @@ const HomePage = () => {
             </CardContent>
             <CardFooter>
               <Button asChild variant="outline" className="w-full">
-                <Link to="/animaux?type=bovin">
+                <Link to="/animaux?type=Bovins">
                   Voir les bovins
                 </Link>
               </Button>
@@ -164,7 +164,7 @@ const HomePage = () => {
             </CardContent>
             <CardFooter>
               <Button asChild variant="outline" className="w-full">
-                <Link to="/animaux?type=ovin">
+                <Link to="/animaux?type=Ovins">
                   Voir les ovins
                 </Link>
               </Button>
