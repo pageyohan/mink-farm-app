@@ -110,7 +110,6 @@ const AnimalApi = {
       const response = await makeRequest(`${API_URL}/animals/${animalId}/photos`, {
         method: "POST",
         headers: {
-          // Ne pas définir le Content-Type pour FormData
           "Content-Type": undefined
         },
         body: formData

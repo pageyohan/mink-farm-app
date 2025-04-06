@@ -31,7 +31,6 @@ export const AuthApi = {
   
   isAuthenticated: () => {
     const token = localStorage.getItem('token');
-    console.log("Token in localStorage:", token); // Déboguer
     
     if (!token) return false;
     

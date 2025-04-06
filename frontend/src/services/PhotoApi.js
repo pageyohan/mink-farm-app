@@ -51,22 +51,15 @@ const PhotoApi = {
   
   uploadForAnimal: async (animalId, file, description = '', principale = false) => {
     try {
-      console.log("Creating FormData with file:", file);
-      
+            
       const formData = new FormData();
       formData.append('photo', file);
       formData.append('description', description || '');
       formData.append('principale', principale.toString());
       
-      // Debug - vérifie ce qui est dans le FormData
-      console.log("FormData entries:");
-      for (let pair of formData.entries()) {
-        console.log(pair[0] + ': ' + pair[1]);
-      }
-      
       const response = await makeRequest(`${API_URL}/animals/${animalId}/photos`, {
         method: "POST",
-        body: formData  // Ne pas définir de headers spécifiques ici
+        body: formData
       });
       
       return response;
