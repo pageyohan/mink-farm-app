@@ -46,7 +46,7 @@ const AnimalDetailPage = () => {
   const getAnimalPhotos = () => {
     if (animal?.photos && animal.photos.length > 0) {
       return animal.photos.map(photo => ({
-        url: `/uploads/photos/${photo.filename}`,
+        url: `http://localhost:8000/uploads/photos/${photo.filename}`,
         description: photo.description || ''
       }));
     }
